@@ -1,0 +1,6 @@
+# Exercise metadata in exercises/*/exercises.toml (auto-discovered)
+
+[[units]]
+id = "unit1"
+title = "C Fundamentals"
+lessons = "06-24"
