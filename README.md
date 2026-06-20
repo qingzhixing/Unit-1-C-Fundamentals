@@ -26,7 +26,7 @@
 
 ## 前置条件
 
-- 您必须报名 [C 语言训练营](https://opencamp.ai/C/camp/2026?lang=zh_CN)
+- 您必须报名 [C 语言训练营](https://opencamp.cn/C/camp/2026?lang=zh_CN)
 
   ![](resource/c.jpg)
 
@@ -110,6 +110,7 @@ clings score unit1
 
 ```bash
 clings                    # 交互式 watch 模式 (默认)
+clings watch unit1 --manual-run  # 手动模式: 按 r 重新运行
 clings list               # 列出练习 + ✔/• 进度状态
 clings hint [exercise]    # 查看提示
 clings run [exercise]     # 运行单个练习
@@ -119,6 +120,39 @@ clings reset <exercise>   # 重置练习文件
 clings doctor             # 检查环境
 clings -v                 # 显示版本号
 ```
+
+### Watch 模式
+
+Rustlings 风格的交互式练习体验 — 保存文件即自动验证，按键即可导航：
+
+```
+Progress: [████████████░░░░░░░░] 12/40 (30.0%)
+
+  ❌ Current: 09a_itoa_hex
+  File: exercises/09_integer_to_string/09a_itoa_hex.c
+  Title: 进制转换: itoa 函数
+
+  compile failed for 09a_itoa_hex
+  ...
+
+  Commands: h:hint  l:list  r:rerun  x:reset  q:quit
+```
+
+交互命令：
+
+| 按键 | 功能 |
+|------|------|
+| `n` | 当前题通过后推进到下一题 |
+| `h` | 显示/隐藏当前题提示 |
+| `l` | 进入列表模式 (j/k 导航、s 搜索、Enter 跳转) |
+| `r` | 强制重新运行当前题 |
+| `x` | 重置当前题 (git checkout 恢复原始文件) |
+| `c` | 检查所有题目 |
+| `q` | 退出 watch 模式 |
+
+列表模式快捷键：`j`/`k` 上下移动 · `g`/`G` 首尾 · `d`/`p`/`a` 筛选 · `s` 或 `/` 搜索 · `r` 重置 · `Enter` 跳转 · `q` 返回
+
+> **进度持久化**：进度自动保存到 `.clings-state.txt`，关闭终端后重新进入 watch 即恢复。
 
 ## 📁 项目结构
 
