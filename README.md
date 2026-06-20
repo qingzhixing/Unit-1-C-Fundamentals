@@ -61,14 +61,31 @@
 
 ```bash
 # Ubuntu/Debian
-sudo apt-get update && sudo apt-get install -y gcc python3 python3-pip
+sudo apt-get update && sudo apt-get install -y gcc python3
+# 安装 uv (推荐)
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # macOS (Homebrew)
-brew install gcc python3
+brew install gcc uv
+```
 
-# 安装 clings
+### 安装 clings
+
+```bash
+# 方式 1: uvx (推荐，无需安装，隔离运行)
+uvx clings init unit1
+uvx clings
+
+# 方式 2: pipx (隔离安装到独立环境)
+pipx install clings
+
+# 方式 3: pip + 虚拟环境
+python3 -m venv .venv && source .venv/bin/activate
 pip install clings
 ```
+
+> **注意**: Ubuntu 23.04+ / Python 3.11+ 禁止直接 `pip install` 到系统环境。
+> 请使用上述 uvx / pipx / venv 方式，避免 `--break-system-packages`。
 
 ### 🚀 快速开始
 
