@@ -9,8 +9,20 @@
 main:
   pull_request:
     - docker:
-        build: Dockerfile.ci
+        image: docker.cnb.cool/opencamp/learning-nccl/opencamp-c-env/ci:latest
       stages:
+
+        - name: List
+          script: clings list unit1
+
+        - name: Run
+          allowFailure: true
+          script: clings run unit1
+
+        - name: Check
+          allowFailure: true
+          script: clings check unit1
+
         - name: score
           allowFailure: true
           script: |
@@ -40,7 +52,7 @@ main:
 $:
   vscode:
     - docker:
-        build: .ide/Dockerfile
+        image: docker.cnb.cool/opencamp/learning-nccl/opencamp-c-env/dev:latest
       runner:
         tags: cnb:arch:amd64
       services:
