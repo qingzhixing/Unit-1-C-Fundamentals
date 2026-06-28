@@ -22,27 +22,43 @@
 
 char board[SIZE][SIZE + 1];
 
-int check_dir(int r, int c, int dr, int dc, char player)
-{
-#error TODO: Check 5 consecutive cells in direction (dr,dc) for same player. Run "clings hint" for help.
+int check_dir(int r, int c, int dr, int dc, char player) {
+    for (int i = 0; i < 5; i++) {
+        int nr = r + i * dr;
+        int nc = c + i * dc;
+        if (nr >= SIZE || nr < 0 || nc >= SIZE || nc < 0) {
+            return 0;
+        }
+        if (board[nr][nc] != player) {
+            return 0;
+        }
+    }
+    return 1;
 }
 
-int check_win(char player)
-{
-#error TODO: Scan board, check 4 directions at each position for a win. Run "clings hint" for help.
+static const DR[4] = {-1, 1, 0, 0};
+static const DC[4] = {0, 0, -1, 1};
+int check_win(char player) {
+    for (int row = 0; row < SIZE; row++) {
+        for (int col = 0; col < SIZE; col++) {
+            for (int dir = 0; dir < 4; dir++) {
+                if (check_dir(row, col, DR[dir], DC[dir], player)) {
+                    return 1;
+                }
+            }
+        }
+    }
 }
 
-int main(void)
-{
-	for (int i = 0; i < SIZE; i++)
-		scanf("%s", board[i]);
+int main(void) {
+    for (int i = 0; i < SIZE; i++) scanf("%s", board[i]);
 
-	if (check_win('B'))
-		printf("black\n");
-	else if (check_win('W'))
-		printf("white\n");
-	else
-		printf("none\n");
+    if (check_win('B'))
+        printf("black\n");
+    else if (check_win('W'))
+        printf("white\n");
+    else
+        printf("none\n");
 
-	return 0;
+    return 0;
 }
