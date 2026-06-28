@@ -12,29 +12,36 @@
  * 验证：输入 "copy me" → "copy me\n"
  */
 
-#include <stdio.h>
 #include <assert.h>
+#include <stdio.h>
 
-char *mystrcpy(char *dest, const char *src)
-{
-	assert(dest != NULL && src != NULL);
+char *mystrcpy(char *dest, const char *src) {
+    assert(dest != NULL && src != NULL);
 
-#error TODO: Implement mystrcpy using pointer idiom. Run "clings hint" for help.
+    char *original_dest = dest;
+
+    while (*src) {
+        *dest = *src;
+        dest++;
+        src++;
+    }
+    *dest = '\0';
+
+    return original_dest;
 }
 
-int main(void)
-{
-	char s1[256] = "";
-	char s2[256];
+int main(void) {
+    char s1[256] = "";
+    char s2[256];
 
-	fgets(s2, sizeof(s2), stdin);
-	/* 去掉换行 */
-	int i = 0;
-	while (s2[i] && s2[i] != '\n') i++;
-	s2[i] = '\0';
+    fgets(s2, sizeof(s2), stdin);
+    /* 去掉换行 */
+    int i = 0;
+    while (s2[i] && s2[i] != '\n') i++;
+    s2[i] = '\0';
 
-	mystrcpy(s1, s2);
-	printf("%s\n", s1);
+    mystrcpy(s1, s2);
+    printf("%s\n", s1);
 
-	return 0;
+    return 0;
 }
