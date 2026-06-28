@@ -36,8 +36,8 @@ int check_dir(int r, int c, int dr, int dc, char player) {
     return 1;
 }
 
-static const DR[4] = {-1, 1, 0, 0};
-static const DC[4] = {0, 0, -1, 1};
+static const int DR[4] = {-1, 1, 0, 0};
+static const int DC[4] = {0, 0, -1, 1};
 int check_win(char player) {
     for (int row = 0; row < SIZE; row++) {
         for (int col = 0; col < SIZE; col++) {
