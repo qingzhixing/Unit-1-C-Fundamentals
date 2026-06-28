@@ -23,22 +23,31 @@ int chessboard[ROW][COL];
 
 /* 平台无关的伪随机数生成器 (Linear Congruential Generator) */
 static unsigned int _seed = 42;
-int my_rand(void) { _seed = _seed * 1103515245 + 12345; return (_seed >> 16) & 0x7fff; }
-
-void init_chessboard(void)
-{
-#error TODO: Fill chessboard[i][j] = my_rand() % 2 with nested loops. Run "clings hint" for help.
+int my_rand(void) {
+    _seed = _seed * 1103515245 + 12345;
+    return (_seed >> 16) & 0x7fff;
 }
 
-void print_chessboard(void)
-{
-#error TODO: Print board with nested loops, spaces between elements. Run "clings hint" for help.
+void init_chessboard(void) {
+    for (int i = 0; i < ROW; i++) {
+        for (int j = 0; j < COL; j++) {
+            chessboard[i][j] = my_rand() % 2;
+        }
+    }
 }
 
-int main(void)
-{
-	init_chessboard();
-	print_chessboard();
+void print_chessboard(void) {
+    for (int i = 0; i < ROW; i++) {
+        for (int j = 0; j < COL; j++) {
+            printf("%d%s", chessboard[i][j], (j != (COL - 1)) ? " " : "");
+        }
+        printf("\n");
+    }
+}
 
-	return 0;
+int main(void) {
+    init_chessboard();
+    print_chessboard();
+
+    return 0;
 }
