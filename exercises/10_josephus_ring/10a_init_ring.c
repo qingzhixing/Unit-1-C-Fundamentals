@@ -19,22 +19,24 @@
 int next[MAX];
 int n;
 
-void init_ring(void)
-{
-#error TODO: Fix this exercise. Run "clings hint" for help.
+void init_ring(void) {
+    for (int i = 0; i < n; i++) {
+        next[i] = (i + 1) % n;
+    }
 }
 
-void print_ring(void)
-{
-#error TODO: Fix this exercise. Run "clings hint" for help.
+void print_ring(void) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", i);
+    }
+    printf("\n");
 }
 
-int main(void)
-{
-	scanf("%d", &n);
+int main(void) {
+    scanf("%d", &n);
 
-	init_ring();
-	print_ring();
+    init_ring();
+    print_ring();
 
-	return 0;
+    return 0;
 }
