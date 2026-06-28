@@ -9,7 +9,7 @@
  *       3. state 1→0 时 buf[i] = '\0' 截断
  *       4. 用 | 连接所有 token 打印
  *
- * 验证：输入 "gcc -Wall main.c" → "gcc|-Wall|main.c\n"
+ * 验证：输入 "gcc -Wall main.c" → "gcc|-Wall|main.c"
  */
 
 #include <stdio.h>
