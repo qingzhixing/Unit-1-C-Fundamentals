@@ -26,38 +26,86 @@
 
 #include <stdio.h>
 
-int get_input_type(char c)
-{
-	if (c == '/')
-		return 1;
-	if (c == '*')
-		return 2;
-	if (c == '\n')
-		return 3;
-	if (c == '\'')
-		return 4;
-	if (c == '\\')
-		return 5;
-	return 0;
+int get_input_type(char c) {
+    if (c == '/') return 1;
+    if (c == '*') return 2;
+    if (c == '\n') return 3;
+    if (c == '\'') return 4;
+    if (c == '\\') return 5;
+    return 0;
 }
 
-int main(void)
-{
-	int state = 0;
+int main(void) {
+    int state = 0;
 
-	while (1)
-	{
-		char c;
-		int input;
+    while (1) {
+        char c;
+        int input;
 
-		c = getchar();
-		if (c == EOF)
-			break;
+        c = getchar();
+        if (c == EOF) break;
 
-		input = get_input_type(c);
+        input = get_input_type(c);
 
-#error TODO: Fix this exercise. Run "clings hint" for help.
-	}
+        switch (state) {
+            case 0:
+                // input==1(/) → state 1, 遇 input==4(') → state 5
+                if (input == 1) {
+                    state = 1;
+                    break;
+                }
+                if (input == 4) {
+                    state = 5;
+                    break;
+                }
+                putchar(c);
+                break;
+            case 1:
+                // input==2(*) → state 2, 遇 input==1(/) → state 4, 否则输出 / 和 c
+                if (input == 2) {
+                    state = 2;
+                    break;
+                }
+                if (input == 1) {
+                    state = 4;
+                    break;
+                }
+                putchar('/');
+                putchar(c);
+                break;
+            case 2:
+                // input==2(*) → state 3, 其余留在 state 2
+                if (input == 2) {
+                    state = 3;
+                    break;
+                }
+                state = 2;
+                break;
+            case 3:
+                // input==1(/) → state 0 (注释结束), 遇 input==2(*) 留 3, 其余回 2
+                if (input == 1) {
+                    state = 0;
+                    break;
+                }
+                if (input == 2) {
+                    state = 3;
+                    break;
+                }
+                state = 2;
+                break;
+            case 4:
+                // input==3(\n) → state 0 (行注释结束，输出\n)
+                if (input == 3) {
+                    state = 0;
+                    putchar(c);
+                    break;
+                }
+                break;
+            case 5:
+                putchar(c);
+                break;
+        }
+    }
 
-	return 0;
+    return 0;
 }
