@@ -17,18 +17,31 @@
 
 #include <stdio.h>
 
-int main(void)
-{
-	int num;
-	char buf[10];
-	int i = 0;
-	int j = 0;
+int main(void) {
+    int num;
+    char buf[10];
+    int i = 0;
+    int j = 0;
 
-	scanf("%d", &num);
+    scanf("%d", &num);
 
-#error TODO: Implement itoa: extract digits with do-while, then reverse. Run "clings hint" for help.
+    int digit = 0;
 
-	printf("buf = %s\n", buf);
+    do {
+        buf[digit++] = num % 10 + '0';
+        num /= 10;
+    } while (num);
 
-	return 0;
+    buf[digit] = '\0';
+
+    // reverse
+    for (int i = 0; i < digit / 2; i++) {
+        int temp = buf[i];
+        buf[i] = buf[digit - i - 1];
+        buf[digit - i - 1] = temp;
+    }
+
+    printf("buf = %s\n", buf);
+
+    return 0;
 }
