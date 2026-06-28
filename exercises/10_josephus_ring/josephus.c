@@ -29,10 +29,10 @@ void init_ring(void) {
 }
 
 int main(void) {
-    int left;
-    int counter;
-    int i;
-    int prev;
+    int left = ALL;
+    int counter = 0;
+    int i = 0;
+    int prev = ALL - 1;
 
     init_ring();
 
@@ -48,15 +48,17 @@ int main(void) {
      *   i = next[i];
      */
 
-    counter++;
-    if (counter == OUT) {
-        left--;
-        printf("%d is out\n", i + 1);
-        next[prev] = next[i];
-        counter = 0;
+    while (left > 0) {
+        counter++;
+        if (counter == OUT) {
+            left--;
+            printf("%d is out\n", i + 1);
+            next[prev] = next[i];
+            counter = 0;
+        }
+        prev = i;
+        i = next[i];
     }
-    prev = i;
-    i = next[i];
 
     return 0;
 }
