@@ -14,30 +14,41 @@
  *       text="abc" pattern="xyz" → "not found\n"
  */
 
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
 
-const char *find_istr(const char *text, const char *pattern)
-{
-#error TODO: Case-insensitive string search using tolower comparison. Run "clings hint" for help.
+const char *find_istr(const char *text, const char *pattern) {
+    int plen = strlen(pattern);
+    while (*text) {
+        int i;
+        for (i = 0; i < plen; i++) {
+            if (tolower(text[i]) != tolower(pattern[i])) {
+                break;
+            }
+        }
+        if (i == plen) {
+            return text;
+        }
+        text++;
+    }
+    return NULL;
 }
 
-int main(void)
-{
-	char text[1024];
-	char pattern[256];
+int main(void) {
+    char text[1024];
+    char pattern[256];
 
-	fgets(text, sizeof(text), stdin);
-	text[strcspn(text, "\n")] = '\0';
+    fgets(text, sizeof(text), stdin);
+    text[strcspn(text, "\n")] = '\0';
 
-	fgets(pattern, sizeof(pattern), stdin);
-	pattern[strcspn(pattern, "\n")] = '\0';
+    fgets(pattern, sizeof(pattern), stdin);
+    pattern[strcspn(pattern, "\n")] = '\0';
 
-	if (find_istr(text, pattern))
-		printf("found\n");
-	else
-		printf("not found\n");
+    if (find_istr(text, pattern))
+        printf("found\n");
+    else
+        printf("not found\n");
 
-	return 0;
+    return 0;
 }
