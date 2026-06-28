@@ -17,59 +17,81 @@
 
 #include <stdio.h>
 
-enum day
-{
-	MONDAY = 1,
-	TUESDAY,
-	WEDNESDAY,
-	THURSDAY,
-	FRIDAY,
-	SATURDAY,
-	SUNDAY
-};
+enum day { MONDAY = 1, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY };
 
-char get_last_char(char str[])
-{
-	char c = 0;
-	int i = 0;
+char get_last_char(char str[]) {
+    char c = 0;
+    int i = 0;
 
-	while (str[i])
-	{
-		c = str[i];
-		i++;
-	}
-	return c;
+    while (str[i]) {
+        c = str[i];
+        i++;
+    }
+    return c;
 }
 
-int is_restricted(int tail_num, enum day today)
-{
-	int ret = 0;
+int is_restricted(int tail_num, enum day today) {
+    int ret = 0;
 
-	switch (tail_num)
-	{
-		case 0: case 5:
-			ret = (today == MONDAY) ? 1 : 0; break;
-		case 1: case 6:
-			ret = (today == TUESDAY) ? 1 : 0; break;
-		case 2: case 7:
-			ret = (today == WEDNESDAY) ? 1 : 0; break;
-		case 3: case 8:
-			ret = (today == THURSDAY) ? 1 : 0; break;
-		case 4: case 9:
-			ret = (today == FRIDAY) ? 1 : 0; break;
-		default:
-			ret = 0; break;
-	}
-	return ret;
+    switch (tail_num) {
+        case 0:
+        case 5:
+            ret = (today == MONDAY) ? 1 : 0;
+            break;
+        case 1:
+        case 6:
+            ret = (today == TUESDAY) ? 1 : 0;
+            break;
+        case 2:
+        case 7:
+            ret = (today == WEDNESDAY) ? 1 : 0;
+            break;
+        case 3:
+        case 8:
+            ret = (today == THURSDAY) ? 1 : 0;
+            break;
+        case 4:
+        case 9:
+            ret = (today == FRIDAY) ? 1 : 0;
+            break;
+        default:
+            ret = 0;
+            break;
+    }
+    return ret;
 }
 
-enum day get_week_day(int year, int month, int day)
-{
-#error TODO: Compute weekday from date using cumulative days + modulo. Run "clings hint" for help.
+const static int DAYS[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+const static int ORIGIN_DAY = 2;  // 2013-1-1 为星期二
+enum day get_week_day(int year, int month, int day) {
+    int d_year = year - 2013;
+    int d_month = month - 1;
+    int d_day = day - 1;
+
+    int all_days = 0;
+
+    // year
+    all_days += 365 * d_year;
+    // month
+    for (int i = 1; i <= 1 + d_month - 1; i++) {
+        all_days += DAYS[i];
+    }
+    // day
+    all_days += d_day;
+
+    return (enum day)((all_days + ORIGIN_DAY) % 7);
 }
 
-int main(void)
-{
-#error TODO: Read input, call get_last_char + get_week_day + is_restricted. Run "clings hint" for help.
-	return 0;
+int main(void) {
+    char number[10] = "\0";
+    int year = 0, month = 0, day = 0;
+
+    scanf("%s", number);
+    scanf("%d %d %d", &year, &month, &day);
+
+    int last_number = get_last_char(number) - '0';
+    enum day weekday = get_week_day(year, month, day);
+
+    printf("%s\n", is_restricted(last_number, weekday) ? "restricted!" : "NOT restricted!");
+    return 0;
 }
