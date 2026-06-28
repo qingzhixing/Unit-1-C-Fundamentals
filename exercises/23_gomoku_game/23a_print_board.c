@@ -19,20 +19,29 @@
 
 static char board[SIZE][SIZE];
 
-void init_board(void)
-{
-#error TODO: Initialize board with memset. Run "clings hint" for help.
+void init_board(void) { memset(board, '.', sizeof(board)); }
+
+void print_board(void) {
+    // 打印列号（首行）
+    printf("  ");  // 两个空格，与行号对齐（行号占2位）
+    for (int j = 0; j < SIZE; j++) {
+        printf(" %2d", j);  // 每个列号占2位，前面加一个空格
+    }
+    printf("\n");
+
+    // 打印每一行
+    for (int i = 0; i < SIZE; i++) {
+        printf("%2d ", i);  // 行号占2位，后面一个空格
+        for (int j = 0; j < SIZE; j++) {
+            printf(" %c", board[i][j]);  // 每个字符前一个空格
+        }
+        printf("\n");
+    }
 }
 
-void print_board(void)
-{
-#error TODO: Fix this exercise. Run "clings hint" for help.
-}
+int main(void) {
+    init_board();
+    print_board();
 
-int main(void)
-{
-	init_board();
-	print_board();
-
-	return 0;
+    return 0;
 }
