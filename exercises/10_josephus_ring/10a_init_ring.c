@@ -27,7 +27,7 @@ void init_ring(void) {
 
 void print_ring(void) {
     for (int i = 0; i < n; i++) {
-        printf("%d ", i);
+        printf("%d ", next[i]);
     }
     printf("\n");
 }
