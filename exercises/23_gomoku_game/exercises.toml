@@ -101,6 +101,5 @@ stdin = """
 0 4
 """
 stdout = """
-
 Player X wins!
 """
