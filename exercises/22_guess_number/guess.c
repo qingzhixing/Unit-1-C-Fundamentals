@@ -8,7 +8,7 @@
  *       1. parse_guess(s, guess): strlen>=4 检查，s[i]-'0' 转换，0-9 范围检查
  *       2. main(): generate_secret, while(1) 循环:
  *          fgets → parse_guess → check → printf("%dA%dB\n")
- *          → 若 a==4 则打印 Congratulations 并 break
+ *          → 若 a==4 则打印 "Congratulations! You got it in %d attempts!" 并 break
  *       3. 最后打印 "The secret was: %d%d%d%d\n"
  *
  * 验证：my_rand() LCG 固定种子，输入 猾测序列
